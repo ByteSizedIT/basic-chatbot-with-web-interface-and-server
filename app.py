@@ -1,7 +1,7 @@
 # existing local venv: source ../3-simple-chatbot/.venv/bin/activate
 # for new env: python -m venv .venv ; source .venv/bin/activate
 
-from flask import Flask, request
+from flask import Flask, request, render_template
 import json
 from flask_cors import CORS
 
@@ -15,9 +15,9 @@ model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 conversation_history = []
 
-@app.route("/")
+@app.route('/', methods=['GET'])
 def home():
-    return "Hello, World!"
+    return render_template('index.html')
 
 @app.route("/chatbot", methods=["POST"])
 def handlePrompt():
